@@ -84,7 +84,9 @@ class _SAITS(nn.Module):
         ) = self.encoder(X, missing_mask, diagonal_attention_mask)
 
         # replace the observed part with values from X
-        imputed_data = missing_mask * X + (1 - missing_mask) * X_tilde_3
+        # imputed_data = missing_mask * X + (1 - missing_mask) * X_tilde_3
+        # keep only the imputed version of the data
+        imputed_data = (1 - missing_mask) * X_tilde_3
 
         # ensemble the results as a dictionary for return
         results = {

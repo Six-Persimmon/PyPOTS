@@ -107,7 +107,9 @@ class _Crossformer(nn.Module):
         dec_out = self.head(enc_out)
         reconstruction = self.output_projection(dec_out)
 
-        imputed_data = missing_mask * X + (1 - missing_mask) * reconstruction
+        # imputed_data = missing_mask * X + (1 - missing_mask) * reconstruction
+        # keep only the imputed version of the data
+        imputed_data = (1 - missing_mask) * reconstruction
         results = {
             "imputed_data": imputed_data,
         }
